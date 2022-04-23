@@ -15,7 +15,7 @@ ENV PYTHONUNBUFFERED 1
 
 # install dependencies  
 RUN pip install --upgrade pip  
-
+RUN python -m pip install django-cors-headers
 # copy whole project to your docker home directory. 
 COPY . $DockerHOME  
 # run this command to install all dependencies  
