@@ -8,3 +8,4 @@ class Game(models.Model):
     price = models.FloatField(blank=True)
     bought = models.IntegerField(default=0)
     viewed = models.IntegerField(default=0)  
+    rank = models.FloatField(blank=True)
