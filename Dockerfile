@@ -1,15 +1,26 @@
-FROM ubuntu:20.04
+# base image  
+FROM python:3.8   
+# setup environment variable  
+ENV DockerHOME=/home/app/webapp  
 
-RUN apt-get update \
-    && add-apt-repository ppa:deadsnakes/ppa \
-    && apt-get install -y python3.8 software-properties-common python3-pip \ 
-    && pip3 --version \     
-    && rm -rf /var/lib/apt/lists/*
+# set work directory  
+RUN mkdir -p $DockerHOME  
 
-WORKDIR /usr/src/app
-COPY requirements.txt ./
-RUN pip install -r requirements.txt
-COPY . .
+# where your code lives  
+WORKDIR $DockerHOME  
 
-EXPOSE 8000
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# set environment variables  
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1  
+
+# install dependencies  
+RUN pip install --upgrade pip  
+
+# copy whole project to your docker home directory. 
+COPY . $DockerHOME  
+# run this command to install all dependencies  
+RUN pip install -r requirements.txt  
+# port where the Django app runs  
+EXPOSE 8000  
+# start server  
+CMD python manage.py runserver  
