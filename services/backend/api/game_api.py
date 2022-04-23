@@ -1,4 +1,5 @@
 
+from tkinter import N
 from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -67,3 +68,7 @@ def extractGame(row, i):
         serializer.save()
     else:
         print(str(serializer.errors))
+
+@api_view(['POST'])
+def createPrediction(request):
+    return Response("Hello World")

@@ -23,7 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/getGames/', game_api.gameList, name='getGames'),
     path('api/v1/uploadData/', game_api.uploadData, name='uploadData'),
-    path('api/v1/dummy/', game_api.getDummyData, name='dummy')
+    path('api/v1/dummy/', game_api.getDummyData, name='dummy'),
+    path('api/v1/createPrediction', game_api.createPrediction, name='createPrediction')
 ]
 
 def loadModel():
