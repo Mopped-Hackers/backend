@@ -26,10 +26,7 @@ SECRET_KEY = '20cv*gugj%evbz53dil2jli@j=qzl9+$&af$mwczcnp0ab5c0r'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'hackkosice2022.azurewebsites.net',
-    'http://localhost:8080',
-    'localhost:8000',
-    'https://hackathon.andrejvysny.sk/'
+    '*'
 ]
 
 
