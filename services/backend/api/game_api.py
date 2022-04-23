@@ -3,7 +3,7 @@ from tkinter import N
 from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-
+from services.services.urls import MODEL_TREE, KNN_DATA, COLUMNS
 from ..model.game import Game
 from ..serializers.game_serializers import GameSerializer
 import csv
@@ -69,6 +69,21 @@ def extractGame(row, i):
     else:
         print(str(serializer.errors))
 
+
+def getPrediction(game_id):
+    game_row = KNN_DATA[KNN_DATA['product_id'] == game_id]
+    game_row = game_row[COLUMNS]
+    dist, ind = MODEL_TREE.query([game_row], k=5)
+    product_ids = list()
+    for j in ind[0][1:]:
+        product_ids.append(KNN_DATA.loc[j]['product_id'])
+    return product_ids
+
 @api_view(['POST'])
 def createPrediction(request):
+
+    predictions = getPrediction(request['game_id'])
+
+    ### TODO return games by id
+
     return Response("Hello World")
