@@ -1,8 +1,8 @@
 FROM python:3.4
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-    postgresql-client \
+    && apt-get install -y --no-install-recommends python3-pip \ 
+    && pip3 --version \     
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/app
