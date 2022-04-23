@@ -14,12 +14,19 @@ class SearchAnswerResponse(BaseModel):
 
 
 _db = db_instance
-router = APIRouter(prefix='/response-manager')
+router = APIRouter(prefix='/')
 logger = logger_instance.get_logger(__name__)
 
 
-@router.get('/', response_model=List[SearchAnswerResponse])
-async def response_manager_test():
+@router.get('/dummy')
+async def getDummyData():
     logger.info('Response Manager')
-    data = {}
-    return [data]
+    data = {
+        {"id": '0001c1dd-462e-453c-bac8-2fcdc0b0bc8d',
+            "category": 'A', "subCategory": 0, "price": 264.61},
+        {"id": '0002278b-67e3-406e-bfc2-63c48c195e2b ',
+            "category": 'B', "subCategory": 3, "price": 24.30},
+        {"id": '0002c59e-df87-47a8-a27d-26b34340bee5 ',
+            "category": 'A', "subCategory": 4, "price": 4.30},
+    }
+    return data

@@ -1,9 +1,5 @@
 # Fast-API 🚀
 
-### Why This ? 🤨
-    Need Clean and Scalable Code Architecture for ML/DL and NLP driven micro-service based Projects ?
-
-    
 ###  **Introduction: Structuring of API**
 
 
@@ -30,24 +26,15 @@
     - `initializer.py:` Preload/Initialisation of Models and Module common across application. Preloading model improves inferencing.
     
 ### Running Locally ? 📍
-   ![Screenshot 2021-05-16 at 6 56 38 PM](https://user-images.githubusercontent.com/17409469/118399886-ea6acd80-b67c-11eb-88de-7dd5021d2bce.png)
-    Run Command  **uvicorn manage:app --host 0.0.0.0 --port 8000**
 
+```python
+    python3 -m venv be
+```
+
+```python
+    uvicorn manage:app --host 0.0.0.0 --port 8000
+```
 ### Docker Support 🐳
 
     docker build -t fastapi-image  .
     docker run -d --name fastapi-container -p 8000:8000 fastapi-image
-
-### Sample Demo App ~ Powered by Streamlit ⚡️
-![Screenshot 2021-05-16 at 6 56 19 PM](https://user-images.githubusercontent.com/17409469/118399165-80045e00-b679-11eb-9416-8b73936e9b83.png)
-    Always good to have an interface to show a quick demo 😁.
-    `Note: manage.py runs the streamlit app as a subprocess. feel free to move it as per your need. `
-
-### What is new ?
-  - Form Support for Image Classification
-  ![imgClassification](https://user-images.githubusercontent.com/17409469/142370743-c06a6156-f30e-487e-9004-2cabdb961af1.png)
-  - Cutelogs GUI Integration for Easy LogsView
-  ![Logs](https://user-images.githubusercontent.com/17409469/142371199-c5ae36fa-7fd6-4b47-aea6-da728f7f8990.png)
-
-
-**Drop me email for any queries on subir.verma48@gmail.com**
