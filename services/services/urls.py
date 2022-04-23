@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from backend.api import game_api
+import pandas as pd
+from sklearn.neighbors import KDTree
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +27,9 @@ urlpatterns = [
 ]
 
 def loadModel():
-    print('Loading model ...')
-
-loadModel()
+    items = pd.read_csv("KNN_dataset.csv")
+    columns = items.columns[2:]
+    X = items[columns]
+    tree = KDTree(X)
+    return tree
+MODEL_TREE = loadModel()
