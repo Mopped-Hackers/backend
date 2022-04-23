@@ -23,3 +23,8 @@ urlpatterns = [
     path('api/v1/uploadData/', game_api.uploadData, name='uploadData'),
     path('api/v1/dummy/', game_api.getDummyData, name='dummy')
 ]
+
+def loadModel():
+    print('Loading model ...')
+
+loadModel()

@@ -36,7 +36,7 @@ def gameList(request):
 @api_view(['GET'])
 def uploadData(request):
     try:
-        file = open('catalog_items.csv')
+        file = open('items_2.csv')
         csvreader = csv.reader(file)
         rows = []
         for row in csvreader:
@@ -47,18 +47,21 @@ def uploadData(request):
                 i = i + 1
                 continue
             else:
-                extractGame(row)            
+                i = i + 1
+                extractGame(row, i)   
     except Exception as e:
         print(e)
     return Response(None)
 
-def extractGame(row):
-    print(row)
+def extractGame(row, i):
+    print(str(i) + " -> " + str(row))
     game = {}
     game['gameId'] = row[0]
     game['category'] = row[1]
     game['subCategory'] = row[2]
-    game['price'] = 0.0
+    game['price'] = row[3]
+    game['bought'] = row[4]
+    game['viewed'] = row[5]
     serializer = GameSerializer(data=game)
     if serializer.is_valid():
         serializer.save()

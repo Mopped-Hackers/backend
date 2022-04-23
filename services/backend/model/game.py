@@ -6,3 +6,5 @@ class Game(models.Model):
     category = models.CharField(max_length=1)
     subCategory = models.IntegerField()
     price = models.FloatField(blank=True)
+    bought = models.IntegerField(default=0)
+    viewed = models.IntegerField(default=0)  
