@@ -5,6 +5,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from application.initializer import IncludeAPIRouter
 from application.main.config import settings
 
+origins = [
+    "http://localhost.tiangolo.com",
+    "https://localhost.tiangolo.com",
+    "http://localhost",
+    "http://localhost:8080",
+    "http://localhost:8080",
+    "https://hackathon.andrejvysny.sk/"
+]
+
 
 def get_application():
     _app = FastAPI(title=settings.API_NAME,
@@ -13,6 +22,7 @@ def get_application():
     _app.include_router(IncludeAPIRouter())
     _app.add_middleware(
         CORSMiddleware,
+        allow_origins=origins,
         allow_credentials=False,
         allow_methods=["*"],
         allow_headers=["*"],
