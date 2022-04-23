@@ -25,7 +25,12 @@ SECRET_KEY = '20cv*gugj%evbz53dil2jli@j=qzl9+$&af$mwczcnp0ab5c0r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'hackkosice2022.azurewebsites.net',
+    'localhost:8080',
+    'localhost:8000',
+    'https://hackathon.andrejvysny.sk/'
+]
 
 
 # Application definition
