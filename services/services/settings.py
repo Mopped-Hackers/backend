@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'hackkosice2022.azurewebsites.net',
-    'localhost:8080',
+    'http://localhost:8080',
     'localhost:8000',
     'https://hackathon.andrejvysny.sk/'
 ]
