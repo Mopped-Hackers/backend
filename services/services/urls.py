@@ -19,5 +19,7 @@ from backend.api import game_api
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/getGames/', game_api.gameList, name='getGames')
+    path('api/v1/getGames/', game_api.gameList, name='getGames'),
+    path('api/v1/uploadData/', game_api.uploadData, name='uploadData'),
+    path('api/v1/dummy/', game_api.getDummyData, name='dummy')
 ]
