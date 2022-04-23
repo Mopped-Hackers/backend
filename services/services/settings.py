@@ -29,7 +29,6 @@ ALLOWED_HOSTS = [
     '*'
 ]
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -56,24 +55,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'services.urls'
+
 CORS_ALLOW_ALL_ORIGINS = True
-
-CORS_ALLOWED_ORIGINS = [
-    "https://example.com",
-    "https://sub.example.com",
-    "http://localhost:8080",
-    "http://127.0.0.1:8080",
-    "*"
-]
-
-CORS_ALLOW_METHODS = [
-    "DELETE",
-    "GET",
-    "OPTIONS",
-    "PATCH",
-    "POST",
-    "PUT",
-]
 
 TEMPLATES = [
     {
