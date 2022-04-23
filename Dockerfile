@@ -1,7 +1,8 @@
-FROM python:3.4
+FROM ubuntu:20.04
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends python3-pip \ 
+    && add-apt-repository ppa:deadsnakes/ppa \
+    && apt-get install -y python3.8 software-properties-common python3-pip \ 
     && pip3 --version \     
     && rm -rf /var/lib/apt/lists/*
 
