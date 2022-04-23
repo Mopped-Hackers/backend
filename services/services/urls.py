@@ -16,23 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from backend.api import game_api
-import pandas as pd
-from sklearn.neighbors import KDTree
+from backend.api import global_games_api
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/getGames/', game_api.gameList, name='getGames'),
     path('api/v1/uploadData/', game_api.uploadData, name='uploadData'),
     path('api/v1/dummy/', game_api.getDummyData, name='dummy'),
-    path('api/v1/createPrediction', game_api.createPrediction, name='createPrediction')
+    path('api/v1/createPrediction', game_api.createPrediction, name='createPrediction'),
+    path('api/v1/getGlobalDataTop/', global_games_api.getGlobalDataTop, name='getGlobalDataTop'),
+    path('api/v1/getGlobalDataBottom/', global_games_api.getGlobalDataBottom, name='getGlobalDataBottom'),
 ]
-
-def loadModel():
-    items = pd.read_csv("../KNN_dataset.csv")
-    columns = items.columns[2:]
-    X = items[columns]
-    tree = KDTree(X)
-    return tree
-MODEL_TREE = loadModel()
-KNN_DATA = pd.read_csv("KNN_dataset.csv")
-COLUMNS = KNN_DATA.columns[2:]

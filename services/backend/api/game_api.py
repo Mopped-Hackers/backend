@@ -3,7 +3,7 @@ from tkinter import N
 from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from services.services.urls import MODEL_TREE, KNN_DATA, COLUMNS
+# from services.urls import MODEL_TREE, KNN_DATA, COLUMNS
 from ..model.game import Game
 from ..serializers.game_serializers import GameSerializer
 import csv
@@ -44,7 +44,7 @@ def uploadData(request):
             rows.append(row)
         i=0
         for row in rows:
-            if i == 0:
+            if i < 70791:
                 i = i + 1
                 continue
             else:
@@ -63,6 +63,7 @@ def extractGame(row, i):
     game['price'] = row[3]
     game['bought'] = row[4]
     game['viewed'] = row[5]
+    game['rank'] = 0.0
     serializer = GameSerializer(data=game)
     if serializer.is_valid():
         serializer.save()
@@ -73,7 +74,7 @@ def extractGame(row, i):
 def getPrediction(game_id):
     game_row = KNN_DATA[KNN_DATA['product_id'] == game_id]
     game_row = game_row[COLUMNS]
-    dist, ind = MODEL_TREE.query([game_row], k=5)
+    dist, ind = MODEL_TREE.query(game_row, k=6)
     product_ids = list()
     for j in ind[0][1:]:
         product_ids.append(KNN_DATA.loc[j]['product_id'])
@@ -81,9 +82,20 @@ def getPrediction(game_id):
 
 @api_view(['POST'])
 def createPrediction(request):
+    predictions = getPrediction(request.data.get('gameId'))
+    games = Game.objects.filter(gameId__in=predictions)
+    serializer = GameSerializer(games, many=True)
+    return Response(serializer.data)
 
-    predictions = getPrediction(request['game_id'])
+import pandas as pd
+from sklearn.neighbors import KDTree
 
-    ### TODO return games by id
-
-    return Response("Hello World")
+def loadModel():
+    items = pd.read_csv("KNN_dataset.csv")
+    columns = items.columns[2:]
+    X = items[columns]
+    tree = KDTree(X)
+    return tree
+MODEL_TREE = loadModel()
+KNN_DATA = pd.read_csv("KNN_dataset.csv")
+COLUMNS = KNN_DATA.columns[2:]
