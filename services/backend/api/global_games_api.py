@@ -6,13 +6,13 @@ from rest_framework.response import Response
 
 @api_view(['GET'])
 def getGlobalDataTop(request):
-    games = Game.objects.all().order_by('-rank')[:10] 
+    games = Game.objects.all().order_by('-rank')[:5] 
     serializer = GameSerializer(games, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
 def getGlobalDataBottom(request):
-    games = Game.objects.all().order_by('-rank').reverse()[:10] 
+    games = Game.objects.all().order_by('-rank').reverse()[:5] 
     serializer = GameSerializer(games, many=True)
     return Response(serializer.data)
 

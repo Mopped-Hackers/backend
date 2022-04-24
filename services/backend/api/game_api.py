@@ -113,6 +113,12 @@ COLUMNS = KNN_DATA.columns[2:]
 @api_view(['POST'])
 def getSuggestion(request):
     input = request.data.get('search')
-    games = Game.objects.filter(gameId__contains=input)
+    games = Game.objects.filter(gameId__startswith=input)[:5] 
+    serializer = GameSerializer(games, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def fixRank(request):
+    games = Game.objects.filter(rank=0)
     serializer = GameSerializer(games, many=True)
     return Response(serializer.data)
