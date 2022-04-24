@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from backend.api import game_api
 from backend.api import global_games_api
+from backend.api import purchase_api
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +29,5 @@ urlpatterns = [
     path('api/v1/getGlobalDataBottom/', global_games_api.getGlobalDataBottom, name='getGlobalDataBottom'),
     path('api/v1/getSuggestion', game_api.getSuggestion, name='getSuggestion'),
     path('api/v1/fixRank', game_api.fixRank, name='fixRank'),
+    path('api/v1/getData/', purchase_api.getData, name='getData'),
 ]
