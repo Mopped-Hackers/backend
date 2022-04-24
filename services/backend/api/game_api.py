@@ -1,4 +1,5 @@
 
+import random
 from tkinter import N
 from django.http import HttpResponse
 from rest_framework.response import Response
@@ -86,11 +87,12 @@ def createPrediction(request):
     predictions = getPrediction(gameId)
     games = Game.objects.filter(gameId__in=predictions)
     for game in games:
-        print(str(game.gameId) + ' ' + str(game.rank))
-        game.rank = game.rank + 1 
+        newRank = random.randint(0, 5000)
+        game.rank = game.rank + (newRank / 100)
         game.save()
     game = Game.objects.get(gameId=gameId)
-    game.rank = game.rank + 1 
+    newRank = random.randint(0, 5000)
+    game.rank = game.rank + (newRank / 100)
     game.save()
     serializer = GameSerializer(games, many=True)
     return Response(serializer.data)
@@ -100,14 +102,14 @@ from sklearn.neighbors import KDTree
 
 def loadModel():
     items = pd.read_csv("/home/app/webapp/services/KNN_dataset.csv")
-    #items = pd.read_csv("KNN_dataset.csv")
+    # items = pd.read_csv("KNN_dataset.csv")
     columns = items.columns[2:]
     X = items[columns]
     tree = KDTree(X)
     return tree
 MODEL_TREE = loadModel()
 KNN_DATA = pd.read_csv("/home/app/webapp/services/KNN_dataset.csv")
-#KNN_DATA = pd.read_csv("KNN_dataset.csv")
+# KNN_DATA = pd.read_csv("KNN_dataset.csv")
 COLUMNS = KNN_DATA.columns[2:]
 
 @api_view(['POST'])
@@ -119,6 +121,14 @@ def getSuggestion(request):
 
 @api_view(['GET'])
 def fixRank(request):
+    i = 0
     games = Game.objects.filter(rank=0)
+    for game in games:
+        i = i + 1
+        newRank = random.randint(-150, 150)
+        if i % 20 == 0:
+            print(f"Updating {i}. out of {len(games)}, gameId = {game.gameId}, previous = {game.rank}, new = {newRank}")
+        game.rank = newRank
+        game.save()
     serializer = GameSerializer(games, many=True)
-    return Response(serializer.data)
+    return Response("Hello World")
