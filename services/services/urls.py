@@ -32,4 +32,5 @@ urlpatterns = [
     path('api/v1/getData', purchase_api.getData, name='getData'),
     path('api/v1/getGlobalCategory/', global_games_api.getGlobalCategory, name='getGlobalCategory'),
     path('api/v1/getGlobalSubCategory/', global_games_api.getGlobalSubCategory, name='getGlobalSubCategory'),
+    path('api/v1/updateBuy', global_games_api.updateBuy, name='updateBuy'),
 ]

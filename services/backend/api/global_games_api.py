@@ -54,3 +54,21 @@ def getGlobalSubCategory(request):
             break
     return Response(subcategories)
 
+import random
+@api_view(['POST'])
+def updateBuy(request):
+    gameId = request.data.get('gameId')
+    
+    try:
+        game = Game.objects.get(gameId=gameId)
+        game.bought = game.bought + 1 
+        game.viewed = game.viewed + 1 
+        newRank = random.randint(0, 1000)
+        game.rank = game.rank + (newRank / 100)
+        game.save()
+    except:
+        game = None
+        return HttpResponse("Internal error", status=500)
+    if not game:
+        return HttpResponse("No content", status=204)
+    return Response("SUCCESS")
