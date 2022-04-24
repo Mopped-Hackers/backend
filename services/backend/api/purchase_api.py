@@ -19,7 +19,8 @@ def getData(request):
         purchases = ordered
     except:
         purchases = None
+        return HttpResponse("Internal error", status=500)
     if not purchases:
-        return HttpResponse("No Content", status=404)
+        return HttpResponse("No Content", status=204)
     serializer = PurchaseSerializer(purchases, many=True)
     return Response(serializer.data)
