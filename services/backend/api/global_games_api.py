@@ -36,3 +36,21 @@ def getGlobalCategory(request):
             break
     return Response(categories)
 
+@api_view(['GET'])
+def getGlobalSubCategory(request):
+    with connection.cursor() as cursor:
+        cursor.execute("select sum(rank), subCategory from backend_game group by subCategory order by sum(rank) desc")
+        rows = cursor.fetchall()
+    subcategories = []
+    i = 0
+    for row in rows:
+        i = i + 1
+        subcategory = {}
+        subcategory['id'] = i
+        subcategory['rank'] = row[0]
+        subcategory['category'] = row[1]
+        subcategories.append(subcategory)
+        if i == 5:
+            break
+    return Response(subcategories)
+
