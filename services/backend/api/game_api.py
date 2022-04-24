@@ -99,15 +99,15 @@ import pandas as pd
 from sklearn.neighbors import KDTree
 
 def loadModel():
-    # items = pd.read_csv("/home/app/webapp/services/KNN_dataset.csv")
-    items = pd.read_csv("KNN_dataset.csv")
+    items = pd.read_csv("/home/app/webapp/services/KNN_dataset.csv")
+    #items = pd.read_csv("KNN_dataset.csv")
     columns = items.columns[2:]
     X = items[columns]
     tree = KDTree(X)
     return tree
 MODEL_TREE = loadModel()
-# KNN_DATA = pd.read_csv("/home/app/webapp/services/KNN_dataset.csv")
-KNN_DATA = pd.read_csv("KNN_dataset.csv")
+KNN_DATA = pd.read_csv("/home/app/webapp/services/KNN_dataset.csv")
+#KNN_DATA = pd.read_csv("KNN_dataset.csv")
 COLUMNS = KNN_DATA.columns[2:]
 
 @api_view(['POST'])
