@@ -92,18 +92,19 @@ from sklearn.neighbors import KDTree
 
 def loadModel():
     items = pd.read_csv("/home/app/webapp/services/KNN_dataset.csv")
+    # items = pd.read_csv("KNN_dataset.csv")
     columns = items.columns[2:]
     X = items[columns]
     tree = KDTree(X)
     return tree
 MODEL_TREE = loadModel()
 KNN_DATA = pd.read_csv("/home/app/webapp/services/KNN_dataset.csv")
+# KNN_DATA = pd.read_csv("KNN_dataset.csv")
 COLUMNS = KNN_DATA.columns[2:]
 
-# @api_view(['POST'])
-# def getSuggestion(request):
-#     input = getPrediction(request.data.get('search'))
-#     games = Game.objects.filter(gameId__contains=input)
-#     games = Game.objects.filter(gameId__in=predictions)
-#     serializer = GameSerializer(games, many=True)
-#     return Response(serializer.data)
+@api_view(['POST'])
+def getSuggestion(request):
+    input = request.data.get('search')
+    games = Game.objects.filter(gameId__contains=input)
+    serializer = GameSerializer(games, many=True)
+    return Response(serializer.data)

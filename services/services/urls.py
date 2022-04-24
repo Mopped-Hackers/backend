@@ -26,4 +26,5 @@ urlpatterns = [
     path('api/v1/createPrediction', game_api.createPrediction, name='createPrediction'),
     path('api/v1/getGlobalDataTop/', global_games_api.getGlobalDataTop, name='getGlobalDataTop'),
     path('api/v1/getGlobalDataBottom/', global_games_api.getGlobalDataBottom, name='getGlobalDataBottom'),
+    path('api/v1/getSuggestion', game_api.getSuggestion, name='getSuggestion'),
 ]
