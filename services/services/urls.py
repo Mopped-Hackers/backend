@@ -29,5 +29,6 @@ urlpatterns = [
     path('api/v1/getGlobalDataBottom/', global_games_api.getGlobalDataBottom, name='getGlobalDataBottom'),
     path('api/v1/getSuggestion', game_api.getSuggestion, name='getSuggestion'),
     path('api/v1/fixRank', game_api.fixRank, name='fixRank'),
-    path('api/v1/getData/', purchase_api.getData, name='getData'),
+    path('api/v1/getData', purchase_api.getData, name='getData'),
+    path('api/v1/getGlobalCategory/', global_games_api.getGlobalCategory, name='getGlobalCategory'),
 ]

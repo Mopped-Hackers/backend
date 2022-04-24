@@ -1,3 +1,4 @@
+from unicodedata import category
 from rest_framework.decorators import api_view
 from ..model.game import Game
 from ..serializers.game_serializers import GameSerializer
@@ -15,4 +16,22 @@ def getGlobalDataBottom(request):
     games = Game.objects.all().order_by('-rank').reverse()[:5] 
     serializer = GameSerializer(games, many=True)
     return Response(serializer.data)
+
+from django.db import connection
+@api_view(['GET'])
+def getGlobalCategory(request):
+    with connection.cursor() as cursor:
+        cursor.execute("select sum(rank), category from backend_game group by category order by sum(rank) desc")
+        rows = cursor.fetchall()
+    categories = []
+    i = 0
+    for row in rows:
+        category = {}
+        category['rank'] = row[0]
+        category['category'] = row[1]
+        categories.append(category)
+        i = i + 1
+        if i == 5:
+            break
+    return Response(categories)
 
