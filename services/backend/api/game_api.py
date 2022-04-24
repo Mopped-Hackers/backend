@@ -82,8 +82,16 @@ def getPrediction(game_id):
 
 @api_view(['POST'])
 def createPrediction(request):
-    predictions = getPrediction(request.data.get('gameId'))
+    gameId = request.data.get('gameId')
+    predictions = getPrediction(gameId)
     games = Game.objects.filter(gameId__in=predictions)
+    for game in games:
+        print(str(game.gameId) + ' ' + str(game.rank))
+        game.rank = game.rank + 1 
+        game.save()
+    game = Game.objects.get(gameId=gameId)
+    game.rank = game.rank + 1 
+    game.save()
     serializer = GameSerializer(games, many=True)
     return Response(serializer.data)
 
@@ -91,15 +99,15 @@ import pandas as pd
 from sklearn.neighbors import KDTree
 
 def loadModel():
-    items = pd.read_csv("/home/app/webapp/services/KNN_dataset.csv")
-    # items = pd.read_csv("KNN_dataset.csv")
+    # items = pd.read_csv("/home/app/webapp/services/KNN_dataset.csv")
+    items = pd.read_csv("KNN_dataset.csv")
     columns = items.columns[2:]
     X = items[columns]
     tree = KDTree(X)
     return tree
 MODEL_TREE = loadModel()
-KNN_DATA = pd.read_csv("/home/app/webapp/services/KNN_dataset.csv")
-# KNN_DATA = pd.read_csv("KNN_dataset.csv")
+# KNN_DATA = pd.read_csv("/home/app/webapp/services/KNN_dataset.csv")
+KNN_DATA = pd.read_csv("KNN_dataset.csv")
 COLUMNS = KNN_DATA.columns[2:]
 
 @api_view(['POST'])
