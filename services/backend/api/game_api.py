@@ -87,11 +87,11 @@ def createPrediction(request):
     predictions = getPrediction(gameId)
     games = Game.objects.filter(gameId__in=predictions)
     for game in games:
-        newRank = random.randint(0, 5000)
+        newRank = random.randint(0, 1000)
         game.rank = game.rank + (newRank / 100)
         game.save()
     game = Game.objects.get(gameId=gameId)
-    newRank = random.randint(0, 5000)
+    newRank = random.randint(0, 1000)
     game.rank = game.rank + (newRank / 100)
     game.save()
     serializer = GameSerializer(games, many=True)
