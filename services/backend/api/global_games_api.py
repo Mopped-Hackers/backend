@@ -26,11 +26,12 @@ def getGlobalCategory(request):
     categories = []
     i = 0
     for row in rows:
+        i = i + 1
         category = {}
+        category['id'] = i
         category['rank'] = row[0]
         category['category'] = row[1]
         categories.append(category)
-        i = i + 1
         if i == 5:
             break
     return Response(categories)
