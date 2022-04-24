@@ -61,11 +61,12 @@ def updateBuy(request):
     
     try:
         game = Game.objects.get(gameId=gameId)
-        game.bought = game.bought + 1 
-        game.viewed = game.viewed + 1 
-        newRank = random.randint(0, 1000)
-        game.rank = game.rank + (newRank / 100)
-        game.save()
+        if game.bought < 100:
+            game.bought = game.bought + 1 
+            game.viewed = game.viewed + 1 
+            newRank = random.randint(0, 1000)
+            game.rank = game.rank + (newRank / 100)
+            game.save()
     except:
         game = None
         return HttpResponse("Internal error", status=500)
