@@ -1,7 +1,13 @@
 version: '3.8'
 
 services:
-  be:
+
+  bedatabase: 
+    container_name: bemariadb
+    image: mariadb:10.5
+    ports: "3306:3306"
+
+  bepython:
     container_name: bepython
     build:
       context: .
